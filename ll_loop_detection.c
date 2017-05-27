@@ -32,18 +32,6 @@ struct node * createList(struct node *head,int item,int nodeNumber)
             node->next = NULL;
             head = node;
         }
-        else
-        {
-            while(count != nodeNumber)
-            {
-
-                head = head->next;
-                count++;
-            }
-
-            node->next = head;
-        }
-
         return head;
     }
     else
