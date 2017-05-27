@@ -98,18 +98,20 @@ void displayList(struct node *head)
 int detectLoop(struct node *head)
 {
 	struct node *tempHead,*fastP,*slowP;
-	int loopDetacted = 0;
+	int loopDetacted = 0,check;
 	fastP = slowP = tempHead = head;
 	while(fastP&&slowP)
 	{
 		if(!fastP)
 		{
-			return 1;
+			loopDetacted =  0;
+			break;
 		}
 		fastP = fastP->next;
 		if(!fastP)
 		{
-			return 1;
+			loopDetacted =  0;
+			break;
 		}
 		fastP = fastP->next;
 		slowP = slowP->next;
@@ -117,19 +119,36 @@ int detectLoop(struct node *head)
 		{
 			printf("coming here");
 
-			return 0;
+			loopDetacted =  1;
+			break;
 		}
 	}
 
-	return 1;
+	printf("\n-----Wish to see the looping point----- \n \
+    ##If yes press ---> 1\n \
+    ##Else press ---->0 \n>");
+	scanf("%d",&check);
+	if(check&&loopDetacted)
+	{
+		slowP = head;
+		while(slowP != fastP)	
+		{
+			fastP = fastP->next;
+			slowP = slowP->next;
+		}
+
+		printf("\n The Looping point was ---> %d \n",slowP->i);
+	}
+
+	return loopDetacted;
 
 }
 void main()
 {
     struct node *list,*head=NULL;
-    int item=-1,nodenum,loop=1;
+    int item=-1,nodenum,loop=1,loopDetacted;
     printf("***Enter item to list and provide nodenumber 1 if this node next field will not be empty otherwise 0**\n \
-           ***To Continue with insertion press 1 other wise press 2***\n>");
+           ***To Continue with insertion press 1 other wise press 2***\n");
     scanf("%d %d",&item,&nodenum);
 
     while(loop==1)
@@ -150,9 +169,14 @@ void main()
         item = -1;
     }
     // Detection of loop ---
-    !detectLoop(head)? printf("\nLoop is detected\n") : printf("\nloop is not detected\n");
-    if(detectLoop(head))
+    loopDetacted = detectLoop(head);
+    if(loopDetacted)
+    	printf("\nLoop is detected\n");
+    else
+    {
+    	printf("\nloop is not detected\n");
     	displayList(head);
+    }	
     return;
 }
 
