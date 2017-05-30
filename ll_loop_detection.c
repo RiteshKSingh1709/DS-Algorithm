@@ -82,6 +82,20 @@ void displayList(struct node *head)
     return;
 }
 
+// call this function like reverse_ll_recursive(NULL,head pointer of ll)
+// to get the return of new head use double pointer
+strcut node * reverse_ll_recursive(struct node *prev,struct node *curr)
+{
+    if(!curr)
+        return NULL
+    else
+    {
+        reverse_ll_recursive(curr,curr->next);
+        curr->next = curr;
+    }
+
+}
+
 //return 0 if no loop or 1 otherwise 
 int detectLoop(struct node *head)
 {
