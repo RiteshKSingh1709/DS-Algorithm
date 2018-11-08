@@ -145,6 +145,7 @@ int detectLoop(struct node *head)
 	return loopDetacted;
 
 }
+
 void main()
 {
     struct node *list,*head=NULL;
